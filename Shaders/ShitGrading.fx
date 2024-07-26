@@ -29,16 +29,17 @@
 // ---------------------------- |   UI   | -----------------------------//
 //----------------------------- |--------| -----------------------------//
 
-uniform float4 colorAdd <
+uniform float3 colorAdd <
     ui_type = "drag";
     ui_min = 0.0; ui_max = 1.0;
     ui_label = "Addition";
+    hidden = true;
 > = 0.0;
 
-uniform float4 colorMul <
+uniform float3 colorMul <
     ui_type = "drag";
     ui_min = 0.0; ui_max = 2.0;
-    ui_label = "Multiply";
+    ui_label = "Brightness R | G | B";
 > = 1.0;
 
 uniform float colorSat <
@@ -62,9 +63,9 @@ void ColorShit(float4 position : SV_Position, float2 texCoord : TEXCOORD0, out f
 	color = tex2D(ReShade::BackBuffer, texCoord).rgba;
 
     // Brightning of color by Multiplication.
-    color = color * colorMul;
+    color.rgb = color.rgb * colorMul;
     // Brightning of color by Addition.
-    color = color + colorAdd;
+    //color = color + colorAdd;
     // Maniplulating contrast on each color channel via Exponent.
     // sqrt on colorCon is to provide a curve on the contrast user input value.
     color = pow(color, sqrt(colorCon));
