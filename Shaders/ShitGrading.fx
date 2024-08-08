@@ -24,17 +24,11 @@
 //----------------------------- |--------| -----------------------------//
 
 #include "ReShade.fxh"
+#include "ShitCommon.fxh"
 
 //----------------------------- |--------| -----------------------------//
 // ---------------------------- |   UI   | -----------------------------//
 //----------------------------- |--------| -----------------------------//
-
-uniform float3 colorAdd <
-    ui_type = "drag";
-    ui_min = 0.0; ui_max = 1.0;
-    ui_label = "Addition";
-    hidden = true;
-> = 0.0;
 
 uniform float3 colorMul <
     ui_type = "drag";
@@ -64,14 +58,12 @@ void ColorShit(float4 position : SV_Position, float2 texCoord : TEXCOORD0, out f
 
     // Brightning of color by Multiplication.
     color.rgb = color.rgb * colorMul;
-    // Brightning of color by Addition.
-    //color = color + colorAdd;
     // Maniplulating contrast on each color channel via Exponent.
     // sqrt on colorCon is to provide a curve on the contrast user input value.
     color = pow(color, sqrt(colorCon));
     // Manipulating saturation for all colors.
     // sqrt on colorSat is to provide a curve on the saturation user input value.
-    float grey = (color.r * 0.2126 + color.g * 0.7152 + color.b * 0.0722);
+    float grey = (color.r * lumaWeight.r + color.g * lumaWeight.g + color.b * lumaWeight.b);
     color = lerp(grey, color, sqrt(colorSat));
 
 }
