@@ -24,28 +24,34 @@
 //----------------------------- |--------| -----------------------------//
 
 #include "ReShade.fxh"
-#include "ShitCommon.fxh"
+//#include "ShitCommon.fxh"
 
 //----------------------------- |--------| -----------------------------//
 // ---------------------------- |   UI   | -----------------------------//
 //----------------------------- |--------| -----------------------------//
 
-uniform float3 colorMul <
+uniform float3 colorMul 
+<
     ui_type = "drag";
     ui_min = 0.0; ui_max = 2.0;
     ui_label = "Brightness R | G | B";
+
 > = 1.0;
 
-uniform float colorSat <
+uniform float colorSat 
+<
     ui_type = "drag";
     ui_min = 0.0; ui_max = 2.0;
     ui_label = "Saturation";
+
 > = 1.0;
 
-uniform float colorCon <
+uniform float colorCon 
+<
     ui_type = "drag";
     ui_min = 0.50; ui_max = 1.5;
     ui_label = "Contrast";
+
 > = 1.0;
 
 //----------------------------- |--------| -----------------------------//
@@ -54,6 +60,7 @@ uniform float colorCon <
 
 void ColorShit(float4 position : SV_Position, float2 texCoord : TEXCOORD0, out float4 color : SV_Target)
 {
+
 	color = tex2D(ReShade::BackBuffer, texCoord).rgba;
 
     // Brightning of color by Multiplication.
@@ -74,14 +81,20 @@ void ColorShit(float4 position : SV_Position, float2 texCoord : TEXCOORD0, out f
 
 technique ShitGrading
 <
+
     ui_label = "ShitGrading";
     ui_tooltip = "Jordan made this, and isn't quite proud of it.\nFuck you";
+
 >
 
 {
+
     pass
 	{
+
 		VertexShader = PostProcessVS;
 		PixelShader = ColorShit;
+
     }
+
 }
