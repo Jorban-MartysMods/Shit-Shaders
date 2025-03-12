@@ -60,9 +60,47 @@ uniform float colorCon
 //----------------------------- |  FUNC  | -----------------------------//
 //----------------------------- |--------| -----------------------------//
 
+/* Currently Unused
+float3 rgb2hsv (float3 rgb)
+{
+	float3 color = rgb;
+	
+	// color max is the max of red green and blue channels
+	float colorMax = max(color.r, color.g);
+		  colorMax = max(colorMax, color.b);
+		  
+	// same as above but with colorMin
+	float colorMin = min(color.r, color.g);
+	      colorMin = min(colorMin, color.b);
+			  
+	// difference is equal to max color - min color
+	float colorDiff = (colorMax - colorMin);
+		
+	//set up for hue
+	float hsvHue = 0;
+		if (colorMax == color.r) hsvHue = (60 * ((color.g - color.b) / colorDiff) + 360) % 360;
+		if (colorMax == color.g) hsvHue = (60 * ((color.b - color.r) / colorDiff) + 120) % 360;
+		if (colorMax == color.b) hsvHue = (60 * ((color.r - color.g) / colorDiff) + 240) % 360;
+			
+	//set up for sat
+	float hsvSat = 0;
+		if (colorMax == 0);
+			else hsvSat = (colorDiff / colorMax * 100);
+	
+	//set up for value
+	float hsvValue = (colorMax * 100);
+	
+	return float3 (hsvHue, hsvSat, hsvValue) / 360; 
+}
+*/
+
+
 void ColorShit(float4 position : SV_Position, float2 texCoord : TEXCOORD0, out float4 color : SV_Target)
 {
+	
+	
 
+	
 	color = tex2D(ReShade::BackBuffer, texCoord).rgba;
 
     // Brightning of color by Multiplication.
